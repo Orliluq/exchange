@@ -1,0 +1,337 @@
+{
+	"info": {
+		"_postman_id": "d3760bf6-044c-409e-9e64-3ca20ee587c8",
+		"name": "Gift Exchange API",
+		"description": "# Project Structure\n\n**Clean Architecture** siguiendo **SOLID**, adaptada para tu API RESTful de intercambio de regalos con **Java** y **Spring Boot**\n\n`│── application   │ ├── dto   │ │ ├── ParticipantDto.java   │ │ ├── AssignmentDto.java`\n\n`│ │ ├── EmailRequest.java   │ │ ├── ErrorResponse.java   │ ├── usecase   │ │ ├── CreateParticipantUseCase.java   │ │ ├── GenerateAssignmentsUseCase.java   │ │ ├── GetRecipientUseCase.java   │ │ ├── ListParticipantsUseCase.java   ├── domain   │ ├── model   │ │ ├── Participant.java   │ │ ├── Assignment.java`\n\n`│ │ ├── EmailRequest.java   │ ├── service   │ │ ├── EmailNotificationService.java`\n\n`│ │ ├── EmailService.java`\n\n`│ │ ├── ParticipantService.java`\n\n`│ │ ├── GiftExchangeService.java   │ │ ├── NotificationService.java   ├── infrastructure   │ ├── config   │ │ ├── SecurityConfig.java`\n\n`│ │ ├── SwaggerConfig.java`\n\n`├── exception   │ │ ├── EmailNotificationException.java`\n\n`│ │ ├── EmailSendingExceptionn.java`\n\n`│ │ ├── GiftExchangeException.java`\n\n`│ │ ├── ParticipantNotFoundException.java`\n\n`│ │ ├── RecipientNotFoundException.java`\n\n`├── mapper   │ │ ├── AssignmentMapper.java`\n\n`│ │ ├── ParticipantMapper.java   │ ├── persistence   │ │ ├── entity   │ │ │ ├── ParticipantEntity.java   │ │ │ ├── AssignmentEntity.java   │ │ ├── repository   │ │ │ ├── ParticipantRepository.java   │ │ │ ├── AssignmentRepository.java   ├── interfaces   │ ├── controller   │ │ ├── ParticipantController.java   │ │ ├── AssignmentController.java   │ │ ├── NotificationController.java   │ ├── handler   │ ├── GlobalExceptionHandler.java`\n\n`│ ├── shared   │ │ │ ├── utils.java   ├── GiftExchangeApplication.java`\n\n`├── test   │ ├── domain   │ │ ├── service   │ │ │ ├── GiftExchangeServiceTest.java   │ │ │ ├── ParticipantServiceTest.java`\n\n# **Description of Folders and Files**\n\n### **General Architecture Summary**:\n\nThis project follows a **Clean Architecture** structure, ensuring modularity, scalability, and maintainability. Key principles are adhered to, such as **SOLID** for code quality. The main components include:\n\n1. **`application`**: Handles use cases, DTOs, and the application's business logic.\n    \n2. **`domain`**: Contains core business logic, domain models, and services.\n    \n3. **`infrastructure`**: Handles external integrations, such as email services, database configurations, and API documentation.\n    \n4. **`exception`**: Defines custom exceptions used to handle error conditions.\n    \n5. **`mapper`**: Manages the conversion between domain models and other representations (DTOs, database entities).\n    \n6. **`persistence`**: Handles data storage and retrieval (repositories and database entities).\n    \n7. **`interfaces`**: Defines controllers for handling HTTP requests and managing user interactions.\n    \n8. **`test`**: Contains unit tests to ensure the correctness of the logic.\n    \n\nThis structure ensures that the application is easy to maintain and extend while following good software engineering principles.\n\n---\n\n### **Applying SOLID Principles:**\n\n1. **Single Responsibility Principle (SRP)**  \n    Each class has a single responsibility:\n    \n\n- **`ParticipantRepository`** interacts only with the database.\n    \n- **`AssignmentService`** handles only the assignment logic.\n    \n\n1. **Open/Closed Principle (OCP)**  \n    The code is open for extension but closed for modification:\n    \n\n- If a new method is needed to validate assignments, it can be added in the service without changing existing classes.\n    \n\n1. **Liskov Substitution Principle (LSP)**  \n    Repositories and interfaces can easily be replaced without altering the system.\n    \n2. **Interface Segregation Principle (ISP)**  \n    Interfaces such as **ParticipantRepository** and **AssignmentRepository** are focused on specific functionality.\n    \n3. **Dependency Inversion Principle (DIP)**  \n    The system depends on abstractions, not concrete implementations:\n    \n\n- Use cases depend on interfaces (repositories), not concrete implementations.\n    \n\n<img src=\"https://content.pstmn.io/6573ad13-1fba-422a-bec8-38ac110aed35/aW1hZ2UuanBn\" alt=\"\">",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28075095",
+		"_collection_link": "https://orli-dun.postman.co/workspace/Gift-Exchange~3764d472-7d31-4614-b885-3d009e66289b/collection/28075095-d3760bf6-044c-409e-9e64-3ca20ee587c8?action=share&source=collection_link&creator=28075095"
+	},
+	"item": [
+		{
+			"name": "Register participant",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Ale Lun\",\n  \"email\": \"alelun@example.com\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}participants",
+					"host": [
+						"{{url}}participants"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Generate assignments",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin123",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}assignments/generate",
+					"host": [
+						"{{url}}assignments"
+					],
+					"path": [
+						"generate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check assigned recipient",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer YOUR_ACCESS_TOKEN",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}assignments/recipient/16",
+					"host": [
+						"{{url}}assignments"
+					],
+					"path": [
+						"recipient",
+						"16"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List participants",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin123",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}participants",
+					"host": [
+						"{{url}}participants"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create assignment",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin123",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"giver\": {\n    \"id\": 1,\n    \"name\": \"Oli Dun\",\n    \"email\": \"olidun@example.com\"\n  },\n  \"recipient\": {\n    \"id\": 2,\n    \"name\": \"Jane Smith\",\n    \"email\": \"jane.smith@example.com\"\n  }\n}"
+				},
+				"url": {
+					"raw": "{{url}}assignments/create",
+					"host": [
+						"{{url}}assignments"
+					],
+					"path": [
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assign gift",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin123",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n  {\r\n    \"giver\": {\r\n      \"id\": 1,\r\n      \"name\": \"John Doe\",\r\n      \"email\": \"john.doe@example.com\"\r\n    },\r\n    \"recipient\": {\r\n      \"id\": 2,\r\n      \"name\": \"Jane Doe\",\r\n      \"email\": \"jane.doe@example.com\"\r\n    }\r\n  },\r\n  {\r\n    \"giver\": {\r\n      \"id\": 2,\r\n      \"name\": \"Jane Doe\",\r\n      \"email\": \"jane.doe@example.com\"\r\n    },\r\n    \"recipient\": {\r\n      \"id\": 1,\r\n      \"name\": \"John Doe\",\r\n      \"email\": \"john.doe@example.com\"\r\n    }\r\n  }\r\n]\r\n"
+				},
+				"url": {
+					"raw": "{{url}}assignments/assignGifts",
+					"host": [
+						"{{url}}assignments"
+					],
+					"path": [
+						"assignGifts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Send email notification",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin123",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"sender\": \"John Doe\",\n  \"recipient\": \"Jane Doe\",\n  \"recipientEmail\": \"jane.doe@example.com\",\n  \"giftDescription\": \"A lovely Christmas scarf\"\n}\n"
+				},
+				"url": {
+					"raw": "{{url}}notifications/send/email",
+					"host": [
+						"{{url}}notifications"
+					],
+					"path": [
+						"send",
+						"email"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener Participante por Email",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin123",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}participants/john.doe@example.com",
+					"host": [
+						"{{url}}participants"
+					],
+					"path": [
+						"john.doe@example.com"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "admin123",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "admin",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "{{url}}",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Authorization",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

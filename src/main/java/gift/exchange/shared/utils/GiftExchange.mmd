@@ -1,0 +1,14 @@
+erDiagram
+    PARTICIPANT {
+        int id PK
+        string name
+        string email
+    }
+    ASSIGNMENT {
+        int id PK
+        int giver_id FK
+        int recipient_id FK
+        string gift_description
+    }
+    PARTICIPANT ||--o| ASSIGNMENT: "giver"
+    PARTICIPANT ||--o| ASSIGNMENT: "recipient"
