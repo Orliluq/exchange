@@ -17,47 +17,47 @@ This project provides a RESTful API to help a group of friends or family organiz
 ## 🧧 Project Structure
 The project is organized into layers based on Clean Architecture principles:
 
-`application/`: Contains DTOs (data transfer objects) and use cases (business logic).
-`domain/`: Contains the core business models and domain services.
-`infrastructure/`: Contains infrastructure-related configurations, such as security, repositories, and Swagger documentation.
-`exception/`: Defines custom exceptions to handle various error scenarios.
-`mapper/`: Contains classes to map between domain models and database entities.
-`persistence/`: Defines entities for the database and repositories for interacting with the data.
-`interfaces/`: Contains the controllers that handle HTTP requests.
-`test/`: Contains unit tests to ensure proper functionality of services and use cases.
+- `application/`: Contains DTOs (data transfer objects) and use cases (business logic).
+- `domain/`: Contains the core business models and domain services.
+- `infrastructure/`: Contains infrastructure-related configurations, such as security, repositories, and Swagger documentation.
+- `exception/`: Defines custom exceptions to handle various error scenarios.
+- `mapper/`: Contains classes to map between domain models and database entities.
+- `persistence/`: Defines entities for the database and repositories for interacting with the data.
+- `interfaces/`: Contains the controllers that handle HTTP requests.
+- `test/`: Contains unit tests to ensure proper functionality of services and use cases.
 
 ## ✨ Endpoints
 The following are the key API endpoints provided:
 
 1. Register Participant
-URL: `/participants`
-Method: POST
-Request body:
+- URL: `/participants`
+- Method: POST
+- Request body:
 ```
 {
   "name": "John Doe",
   "email": "john.doe@example.com"
 }
 ```
-Response: Returns the created participant with their details.
+- Response: Returns the created participant with their details.
 
 2. Generate Gift Assignments
-URL: `/assignments/generate`
-Method: POST
-Request body: None
-Response: Returns a success message, and gift assignments are stored in the system.
+- URL: `/assignments/generate`
+- Method: POST
+- Request body: None
+- Response: Returns a success message, and gift assignments are stored in the system.
 
 3. Get Assigned Recipient
-URL: `/participants/{email}`
-Method: GET
-Request params:
-email: The email of the participant.
-Response: Returns the recipient's name and email assigned to the participant.
+- URL: `/participants/{email}`
+- Method: GET
+- Request params:
+- email: The email of the participant.
+- Response: Returns the recipient's name and email assigned to the participant.
 
 4. List All Participants (Admin Only)
-URL: `/participants`
-Method: GET
-Response: Returns a list of all registered participants.
+- URL: `/participants`
+- Method: GET
+- Response: Returns a list of all registered participants.
 
 ### 🌟 Validations
 - No Duplicate Participants: The API ensures no two participants can register with the same email.
@@ -98,7 +98,6 @@ As a bonus feature, participants will receive an email notification with the det
 
 ## 🎄 Testing
 Unit tests are included for all key services and use cases, ensuring proper behavior of the application:
-
 `GiftExchangeServiceTest.java`: Tests the functionality of generating assignments and sending emails.
 `ParticipantServiceTest.java`: Tests the creation and lookup of participants.
 The tests are located under the test/domain/service/ directory and can be run using Maven or your IDE's testing framework.
